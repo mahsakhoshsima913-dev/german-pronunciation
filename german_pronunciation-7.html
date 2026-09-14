@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تمرین تلفظ آلمانی</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Tahoma,Arial,sans-serif;background:#f5f7fb;color:#202534}
+header{background:linear-gradient(135deg,#273c75,#4b6cb7);color:white;padding:28px 18px;text-align:center}
+header h1{margin:0 0 8px;font-size:28px}
+header p{margin:0;opacity:.9}
+.container{max-width:1050px;margin:20px auto;padding:0 14px}
+.tabs{display:flex;gap:8px;overflow:auto;margin-bottom:18px}
+.tabs button{border:0;background:white;padding:11px 16px;border-radius:12px;cursor:pointer;box-shadow:0 2px 8px #0001;font-weight:bold;white-space:nowrap}
+.tabs button.active{background:#4b6cb7;color:white}.section h2{letter-spacing:.1px}
+.section{display:none}.section.active{display:block}
+.card{background:white;border-radius:18px;padding:18px;margin-bottom:14px;box-shadow:0 4px 15px #0000000d}
+.card h2{margin:0 0 14px;color:#273c75;font-size:20px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px}
+.word{border:1px solid #e4e7ef;border-radius:14px;padding:14px;background:#fcfdff}
+.word-top{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.de{font-size:22px;font-weight:bold;direction:ltr}
+.play{border:0;border-radius:50%;width:43px;height:43px;background:#4b6cb7;color:white;font-size:19px;cursor:pointer}
+.play:active{transform:scale(.95)}
+.meta{margin-top:8px;line-height:1.8;color:#555}
+.ipa{font-family:Arial,sans-serif;direction:ltr;display:inline-block;color:#273c75;font-weight:bold}
+.fa{color:#666}
+.sound{color:#9b2c2c;font-weight:bold}
+.search{width:100%;padding:13px 15px;border:1px solid #d9deea;border-radius:12px;font-size:16px;margin-bottom:15px}
+.note{background:#fff8df;border-right:5px solid #e0a800;padding:13px;border-radius:10px;line-height:1.9}
+.quiz-question{font-size:21px;font-weight:bold;margin:15px 0}
+.options{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.option{padding:13px;border:1px solid #dce1eb;background:white;border-radius:12px;cursor:pointer;font-size:18px}
+.option.correct{background:#d9f7df;border-color:#35a853}
+.option.wrong{background:#ffe0e0;border-color:#d33}
+#score{font-weight:bold;color:#273c75}
+footer{text-align:center;color:#777;padding:25px}
+</style>
+</head>
+<body>
+<header>
+<h1>🇩🇪 تمرین تلفظ آلمانی</h1>
+<p>آواها، IPA، مثال‌ها و تلفظ شنیداری</p>
+</header>
+
+<div class="container">
+<div class="tabs">
+<button class="active" onclick="showTab('voiceless',this)">🔵 بی‌صداها</button>
+<button onclick="showTab('voiced',this)">🔴 باصداها</button>
+<button onclick="showTab('other',this)">⚪ سایر همخوان‌ها</button>
+<button onclick="showTab('vowels',this)">🟢 واکه‌ها</button>
+<button onclick="showTab('diph',this)">🟣 دوواکه‌ها</button>
+<button onclick="showTab('quiz',this)">🎯 کوییز</button>
+</div>
+
+<div id="voiceless" class="section active">
+<input class="search" placeholder="جست‌وجوی کلمه یا آوای بی‌صدا..." oninput="filterWords(this)">
+<div id="voicelessList"></div>
+</div>
+
+<div id="voiced" class="section">
+<input class="search" placeholder="جست‌وجوی کلمه یا آوای باصدا..." oninput="filterWords(this)">
+<div id="voicedList"></div>
+</div>
+
+<div id="other" class="section">
+<div id="otherList"></div>
+</div>
+
+<div id="vowels" class="section">
+<div id="short"></div>
+<div id="long"></div>
+</div>
+
+<div id="diph" class="section"></div>
+
+<div class="card source-rules">
+<h2>💡 نکات کاربردی فایل</h2>
+<ul style="line-height:2">
+<li>تفاوت <span class="ipa">ç</span> و <span class="ipa">x</span> به واکه قبل از <b>ch</b> بستگی دارد: بعد از واکه‌های پیشین → <span class="ipa">ç</span> و بعد از واکه‌های پسین → <span class="ipa">x</span>.</li>
+<li>در پایان هجا، <b>b → p</b>، <b>d → t</b> و <b>g → k</b> تلفظ می‌شوند (Auslautverhärtung).</li>
+<li>آوای <span class="ipa">r</span> در پایان هجا بسته به موقعیت می‌تواند به <span class="ipa">ʁ</span> یا <span class="ipa">ɐ</span> تبدیل شود.</li>
+<li>انسداد چاکنایی <span class="ipa">ʔ</span> پیش از هر واکه آغازین در آلمانی می‌آید.</li>
+<li>طول واکه می‌تواند معنی را عوض کند؛ فایل <i>Miete</i> و <i>Mitte</i> را به‌عنوان نمونه آورده است.</li>
+<li>قاعده کلی فایل: واکه پیش از یک همخوان معمولاً بلند و پیش از دو یا چند همخوان معمولاً کوتاه است.</li>
+<li><b>h</b> بعد از واکه خودش تلفظ نمی‌شود و نشانه کشیده بودن واکه قبل است (مثل Bahn، Sohn، ruhig).</li>
+<li><span class="ipa">ə</span> فقط در هجاهای بی‌تکیه می‌آید؛ مثل پایان <i>-e</i> در <i>bitte</i>.</li>
+<li>برای <span class="ipa">ö</span> و <span class="ipa">ü</span>، تمرین جلوی آینه و گرد کردن لب‌ها هنگام گفتن آن‌ها توصیه شده است.</li>
+</ul>
+</div>
+
+<div id="quiz" class="section">
+<div class="card">
+<h2>🎯 کوییز تلفظ</h2>
+<p>روی دکمه 🔊 بزن و بعد کلمه‌ای را که فکر می‌کنی شنیدی انتخاب کن.</p>
+<div id="score">امتیاز: ۰</div>
+<div class="quiz-question">🔊 <button class="play" onclick="playQuiz()">▶</button></div>
+<div id="options" class="options"></div>
+<p id="feedback"></p>
+<button onclick="newQuiz()" style="padding:11px 16px;border:0;border-radius:10px;background:#273c75;color:white;cursor:pointer">سؤال جدید</button>
+</div>
+</div>
+</div>
+<footer>بر اساس مطالب فایل «آواهای بی‌صدا و باصدا»</footer>
+
+<script>
+const data = {
+consonants:[
+["p","p","Park, Lieb","مثل «پ» فارسی"],["b","b","Buch","مثل «ب» فارسی"],
+["t","t","Tisch, Hand","مثل «ت» فارسی"],["d","d","Danke","مثل «د» فارسی"],
+["k","k","Katze, Tag","مثل «ک» فارسی"],["g","g","Garten","مثل «گ» فارسی"],
+["m","m","Mutter","مثل «م» فارسی"],["n","n","Name","مثل «ن» فارسی"],
+["ŋ","ng","Singen, Bank","مثل «نگ» در «رنگ» ولی بدون گ جدا"],
+["f","f, v, ph","Fisch, Vater","مثل «ف» فارسی"],
+["v","w, v","Wasser, Vase","مثل «و» فارسی"],
+["s","s, ss, ß","Haus, schließen","مثل «س» فارسی"],
+["z","s","Sonne, See","مثل «ز» فارسی"],
+["ʃ","sch, s","Schule, Stadt","مثل «ش» فارسی"],
+["ʒ","j, g","Journal, Garage","مثل «ژ» فارسی"],
+["ç","ch","ich, Weg","بعد از واکه‌های پیشین؛ صدای سایشی نرم"],
+["x","ch","ach, Buch","نزدیک به «خ» فارسی ولی نرم‌تر"],
+["h","h","Haus","مثل «ه» فارسی"],
+["ʁ","r","Rot, Uhr","«ر» گلویی؛ در آخر هجا اغلب به [ɐ] تبدیل می‌شود"],
+["pf","pf","Pferd","ترکیب p و f"],
+["ts","z, tz, ds, ts","Zeit, Katze","صدای «تس»"],
+["tʃ","tsch","Tschüss","صدای «چ»"],
+["dʒ","dsch, j","Dschungel","صدای «ج»"],
+["l","l","Licht","مثل «ل» فارسی"],
+["j","j","Ja","مثل «ی» فارسی"]
+],
+short:[
+["ɪ","i","Ich, mit","بین «ای» و «ِ» فارسی، کوتاه و باز"],
+["ɛ","e, ä","Bett, Hände","مثل «ِ» فارسی"],
+["a","a","Mann","مثل «اَ» کوتاه"],
+["ɔ","o","Kopf","بین «آ» و «او»، کوتاه و باز"],
+["ʊ","u","Mutter","بین «او» و «ُ»، کوتاه و باز"],
+["ʏ","ü","München","کوتاه‌تر و بازتر، با لب‌های گرد"],
+["œ","ö","Können","کوتاه‌تر و بازتر، با لب‌های گرد"],
+["ə","e","Bitte, gefunden","واکه خنثی و کوتاه در هجای بی‌تکیه"]
+],
+long:[
+["iː","ie, ih, i","Liebe, ihn","مثل «ای» کشیده فارسی"],
+["eː","e, eh, ee","Leben, Zehn, See","کشیده؛ بین «ِ» و «ی»"],
+["ɛː","ä, äh","Käse, zäh","مثل «ِ» کشیده"],
+["aː","a, ah, aa","Vater, Bahn, Haar","مثل «آ» کشیده فارسی"],
+["oː","o, oh, oo","Rot, Sohn, Boot","مثل «او» کشیده و بسته"],
+["uː","u, uh","Uhr, Blume","مثل «او» کشیده فارسی"],
+["yː","ü, üh, y","Tür, früh, Typ","لب‌ها گرد، زبان جلو"],
+["øː","ö, öh","Böse, Söhne","بین «ای» و «او» با لب‌های گرد"]
+],
+diph:[
+["aɪ̯","ei, ai, ey, ay","mein, Mai","مثل «آی»"],
+["aʊ̯","au","Haus","مثل «آاو» / «او» در «قهوه»"],
+["ɔʏ̯","eu, äu","euch, Häuser","مثل «اوی» به هم چسبیده"]
+]};
+
+
+const voicelessIPA = new Set(["p","t","k","f","s","ʃ","ç","x","h","pf","ts","tʃ"]);
+const voicedIPA = new Set(["b","d","g","v","z","ʒ","ʁ","dʒ"]);
+const otherIPA = new Set(["m","n","ŋ","l","j","ʔ"]);
+
+function renderConsonantGroups(){
+ const voiceless = data.consonants.filter(x => voicelessIPA.has(x[0]));
+ const voiced = data.consonants.filter(x => voicedIPA.has(x[0]));
+ const other = data.consonants.filter(x => otherIPA.has(x[0]));
+
+ document.getElementById('voicelessList').innerHTML =
+   `<div class="card"><h2>🔵 آواهای بی‌صدا — Stimmlos</h2>
+    <div class="grid">${voiceless.map(card).join('')}</div></div>`;
+
+ document.getElementById('voicedList').innerHTML =
+   `<div class="card"><h2>🔴 آواهای باصدا — Stimmhaft</h2>
+    <div class="grid">${voiced.map(card).join('')}</div>
+    <div class="note">این بخش فقط آواهایی را شامل می‌شود که خودِ فایل آن‌ها را با برچسب «واکدار» مشخص کرده است.</div></div>`;
+
+ document.getElementById('otherList').innerHTML =
+   `<div class="card"><h2>⚪ سایر همخوان‌ها در فایل</h2>
+    <div class="note">در PDF، خیشومی‌ها (m, n, ŋ)، روان/نیم‌مصوت‌ها (l, j) و انسداد چاکنایی (ʔ) در جدول‌های جدا آمده‌اند و با برچسب «بی‌واک/واکدار» دسته‌بندی نشده‌اند؛ برای اینکه هیچ موردی از فایل حذف نشود، اینجا جدا نگه داشته شده‌اند.</div>
+    <div class="grid">${other.map(card).join('')}</div></div>`;
+}
+function speak(text){
+  if(!('speechSynthesis' in window)){alert('مرورگر شما قابلیت تلفظ صوتی را ندارد.');return}
+  speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(text);
+  u.lang='de-DE'; u.rate=.78; u.pitch=1;
+  speechSynthesis.speak(u);
+}
+function card(x){
+ return `<div class="word" data-search="${(x[0]+' '+x[1]+' '+x[2]+' '+x[3]).toLowerCase()}">
+ <div class="word-top"><div class="de">${x[2]}</div><button class="play" onclick="speak('${x[2].replace(/'/g,"\\'")}')">🔊</button></div>
+ <div class="meta">IPA: <span class="ipa">/${x[0]}/</span><br>
+ حروف: <span class="sound">${x[1]}</span><br><span class="fa">${x[3]}</span></div></div>`;
+}
+function render(id,arr,title){
+ document.getElementById(id).innerHTML=`<div class="card"><h2>${title}</h2><div class="grid">${arr.map(card).join('')}</div></div>`;
+}
+renderConsonantGroups();
+render('short',data.short,'🟢 واکه‌های کوتاه — Kurze Vokale');
+render('long',data.long,'🟢 واکه‌های بلند — Lange Vokale');
+render('diph',data.diph,'🟣 دوواکه‌ها — Diphthonge');
+
+function showTab(id,btn){
+ document.querySelectorAll('.section').forEach(x=>x.classList.remove('active'));
+ document.getElementById(id).classList.add('active');
+ document.querySelectorAll('.tabs button').forEach(x=>x.classList.remove('active'));
+ btn.classList.add('active');
+}
+function filterWords(input){
+ const q=input.value.toLowerCase();
+ const activeSection=input.closest('.section');
+ activeSection.querySelectorAll('.word').forEach(x=>{
+  x.style.display=x.dataset.search.includes(q)?'block':'none';
+ });
+}
+let quizItems=[...data.consonants,...data.diph,...data.long,...data.short].filter(x=>x[2]);
+let current=null,score=0;
+function newQuiz(){
+ current=quizItems[Math.floor(Math.random()*quizItems.length)];
+ let others=[...quizItems].filter(x=>x!==current).sort(()=>Math.random()-.5).slice(0,3);
+ let opts=[current,...others].sort(()=>Math.random()-.5);
+ document.getElementById('options').innerHTML=opts.map(x=>`<button class="option" onclick="answer(this,'${x[2].replace(/'/g,"\\'")}')">${x[2]}</button>`).join('');
+ document.getElementById('feedback').textContent='';
+}
+function playQuiz(){if(current)speak(current[2])}
+function answer(btn,text){
+ document.querySelectorAll('.option').forEach(b=>b.disabled=true);
+ if(text===current[2]){btn.classList.add('correct');score++;document.getElementById('feedback').textContent='✅ درست!';}
+ else{btn.classList.add('wrong');document.getElementById('feedback').textContent='❌ اشتباه؛ جواب درست: '+current[2];}
+ document.getElementById('score').textContent='امتیاز: '+score;
+}
+newQuiz();
+</script>
+</body>
+</html>
