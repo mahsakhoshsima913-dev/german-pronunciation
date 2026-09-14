@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>تلفظ آلمانی — آواها و کلمات</title>
+<style>
+*{box-sizing:border-box} body{margin:0;font-family:Tahoma,Arial,sans-serif;background:#f5f6fa;color:#20242b}
+header{background:#20242b;color:white;padding:28px 18px;text-align:center}
+header h1{margin:0 0 8px;font-size:28px} header p{margin:0;color:#d9dde5}
+main{max-width:1050px;margin:auto;padding:20px}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+button{font:inherit;cursor:pointer;border:0;border-radius:12px;padding:10px 14px;background:#e3e6ed}
+button.active{background:#20242b;color:white}
+.search{width:100%;padding:14px;border:1px solid #d7dbe3;border-radius:12px;margin-bottom:18px;font-size:16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:14px}
+.card{background:white;border:1px solid #e2e5eb;border-radius:16px;padding:18px;box-shadow:0 3px 12px #00000008}
+.sound{font-size:27px;font-weight:bold;direction:ltr;text-align:left}
+.meta{color:#666;margin:8px 0;font-size:14px}
+.example{font-size:23px;direction:ltr;text-align:left;margin:12px 0}
+.pron{font-size:16px;color:#555}
+.play{width:100%;margin-top:12px;background:#20242b;color:white}
+.section{margin:20px 0 12px;font-size:20px}
+.empty{text-align:center;color:#777;padding:40px}
+footer{text-align:center;color:#777;padding:25px}
+</style>
+</head>
+<body>
+<header>
+<h1>🇩🇪 تمرین تلفظ زبان آلمانی</h1>
+<p>آواهای فایل آموزشی + مثال‌ها + پخش تلفظ</p>
+</header>
+<main>
+<input id="search" class="search" placeholder="جستجوی صدا یا کلمه...">
+<div class="tabs" id="tabs"></div>
+<div id="content" class="grid"></div>
+</main>
+<footer>برای پخش، روی 🔊 بزن. صدا با موتور گفتار دستگاه اجرا می‌شود.</footer>
+
+<script>
+const data = [
+["همخوان‌ها","p","Park","مثل «پ» فارسی"],
+["همخوان‌ها","b","Buch","مثل «ب» فارسی"],
+["همخوان‌ها","t","Tisch","مثل «ت» فارسی"],
+["همخوان‌ها","d","Danke","مثل «د» فارسی"],
+["همخوان‌ها","k","Katze","مثل «ک» فارسی"],
+["همخوان‌ها","g","Garten","مثل «گ» فارسی"],
+["همخوان‌ها","ʔ","Apfel","یک وقفه کوچک قبل از واکه"],
+["همخوان‌ها","m","Mutter","مثل «م» فارسی"],
+["همخوان‌ها","n","Name","مثل «ن» فارسی"],
+["همخوان‌ها","ŋ","Singen","مثل «نگ» در «رنگ» ولی بدون «گ» جدا"],
+["همخوان‌ها","f","Fisch","مثل «ف» فارسی"],
+["همخوان‌ها","v","Wasser","مثل «و» فارسی"],
+["همخوان‌ها","s","Haus","مثل «س» فارسی"],
+["همخوان‌ها","z","Sonne","مثل «ز» فارسی"],
+["همخوان‌ها","ʃ","Schule","مثل «ش» فارسی"],
+["همخوان‌ها","ʒ","Journal","مثل «ژ» فارسی"],
+["همخوان‌ها","ç","ich","بعد از واکه‌های پیشین؛ زبان نزدیک کام سخت"],
+["همخوان‌ها","x","ach","بعد از واکه‌های پسین؛ نزدیک به «خ» فارسی ولی نرم‌تر"],
+["همخوان‌ها","h","Haus","مثل «ه» فارسی"],
+["همخوان‌ها","ʁ","Rot","رِ گلویی"],
+["انسایشی‌ها","pf","Pferd","پ + ف به‌صورت پیوسته"],
+["انسایشی‌ها","ts","Zeit","تس"],
+["انسایشی‌ها","tʃ","Tschüss","چ"],
+["انسایشی‌ها","dʒ","Dschungel","ج"],
+["روان‌ها و نیم‌مصوت‌ها","l","Licht","مثل «ل» فارسی"],
+["روان‌ها و نیم‌مصوت‌ها","j","Ja","مثل «ی» فارسی"],
+["واکه‌های کوتاه","ɪ","Ich","بین «ای» و «اِ»، کوتاه و باز"],
+["واکه‌های کوتاه","ɛ","Bett","مثل «اِ» فارسی"],
+["واکه‌های کوتاه","a","Mann","مثل «اَ» فارسی"],
+["واکه‌های کوتاه","ɔ","Kopf","بین «آ» و «او»، کوتاه و باز"],
+["واکه‌های کوتاه","ʊ","Mutter","بین «او» و «اُ»، کوتاه و باز"],
+["واکه‌های کوتاه","ʏ","München","مثل ü ولی کوتاه‌تر و بازتر"],
+["واکه‌های کوتاه","œ","Können","مثل ö ولی کوتاه‌تر و بازتر"],
+["واکه‌های کوتاه","ə","Bitte","واکه خنثی و کوتاه در هجای بی‌تکیه"],
+["واکه‌های بلند","iː","Liebe","«ای» کشیده"],
+["واکه‌های بلند","eː","Leben","کشیده، بین «اِ» و «ی»"],
+["واکه‌های بلند","ɛː","Käse","«اِ» کشیده"],
+["واکه‌های بلند","aː","Vater","مثل «آ» کشیده فارسی"],
+["واکه‌های بلند","oː","Rot","مثل «او» کشیده و بسته"],
+["واکه‌های بلند","uː","Uhr","مثل «او» کشیده فارسی"],
+["واکه‌های بلند","yː","Tür","لب‌ها گرد؛ زبان جلو"],
+["واکه‌های بلند","øː","Böse","لب‌ها گرد؛ صدایی بین e و o"],
+["دوواکه‌ها","aɪ̯","mein","مثل «آی» فارسی"],
+["دوواکه‌ها","aʊ̯","Haus","مثل «آاو» / «او» در «قهوه»"],
+["دوواکه‌ها","ɔʏ̯","Häuser","مثل «اوی» به هم چسبیده"]
+];
+
+const cats=["همه",...new Set(data.map(x=>x[0]))];
+let active="همه";
+
+function speak(word){
+  if(!("speechSynthesis" in window)){alert("مرورگر دستگاه شما پخش گفتار را پشتیبانی نمی‌کند.");return}
+  speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(word);
+  u.lang="de-DE"; u.rate=.78; u.pitch=1;
+  speechSynthesis.speak(u);
+}
+function renderTabs(){
+  tabs.innerHTML=cats.map(c=>`<button class="${c===active?'active':''}" onclick="active='${c}';render()">${c}</button>`).join("");
+}
+function render(){
+  renderTabs();
+  const q=search.value.trim().toLowerCase();
+  const rows=data.filter(x=>(active==="همه"||x[0]===active) &&
+    (!q || x.join(" ").toLowerCase().includes(q)));
+  content.innerHTML=rows.length?rows.map(x=>`
+    <article class="card">
+      <div class="sound">/${x[1]}/</div>
+      <div class="meta">${x[0]}</div>
+      <div class="example">${x[2]}</div>
+      <div class="pron">${x[3]}</div>
+      <button class="play" onclick="speak('${x[2].replace(/'/g,"\\'")}')">🔊 پخش تلفظ</button>
+    </article>`).join(""):`<div class="empty">موردی پیدا نشد.</div>`;
+}
+search.addEventListener("input",render);
+render();
+</script>
+</body>
+</html>
